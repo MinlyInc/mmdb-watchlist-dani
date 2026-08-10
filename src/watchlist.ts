@@ -37,15 +37,18 @@ export function byYear(list: WatchlistItem[], year: number) {
 export function stats(data: WatchlistItem[]): WatchlistStats {
   let totalRuntime = 0;
   let totalRating = 0;
+  let totalRatedFilms = 0;
   let totalFilms = data.length;
   let watchedFilmsCount = data.filter((item) => item.watched).length;
 
   for (const item of data) {
     totalRuntime += item.runtimeMinutes ?? 0;
-    totalRating += item.rating ?? 0;
+    let itemRating = item.rating ?? 0;
+    if (itemRating != 0) {
+      totalRatedFilms++;
+      totalRating += itemRating;
+    }
   }
-
-  console.log("stats() called with", totalFilms, "films");
 
   return {
     totalFilms: totalFilms,
@@ -53,6 +56,6 @@ export function stats(data: WatchlistItem[]): WatchlistStats {
     /** Calculates the number of unwatched films instead iterating over data array */
     unwatchedFilmsCount: totalFilms - watchedFilmsCount,
     totalRuntimeMinutes: totalRuntime,
-    averageRating: totalRating / totalFilms,
+    averageRating: totalRatedFilms == 0 ? 0 : totalRating / totalRatedFilms,
   };
 }

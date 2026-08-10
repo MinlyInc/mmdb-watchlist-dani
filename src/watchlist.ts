@@ -28,6 +28,11 @@ export function unwatched(list: WatchlistItem[]): WatchlistItem[] {
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
 }
 
+/** Returns watchlist of films specified by year */
+export function byYear(list: WatchlistItem[], year: number) {
+  return list.filter((item) => item.year == year);
+}
+
 /** Summarises a watchlist: how much is on it, how long it would take, how good it is. */
 export function stats(data: WatchlistItem[]): WatchlistStats {
   let totalRuntime = 0;
@@ -50,9 +55,4 @@ export function stats(data: WatchlistItem[]): WatchlistStats {
     totalRuntimeMinutes: totalRuntime,
     averageRating: totalRating / totalFilms,
   };
-}
-
-/** Returns watchlist of films specified by year */
-export function byYear(list: WatchlistItem[], year: number) {
-  return list.filter((item) => item.year == year);
 }

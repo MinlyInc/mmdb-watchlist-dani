@@ -45,7 +45,7 @@ export function stats(data: WatchlistItem[]): WatchlistStats {
   return {
     totalFilms: totalFilms,
     watchedFilmsCount: watchedFilmsCount,
-    //** Calculates the number of unwatched films instead iterating over data array */
+    /** Calculates the number of unwatched films instead iterating over data array */
     unwatchedFilmsCount: totalFilms - watchedFilmsCount,
     totalRuntimeMinutes: totalRuntime,
     averageRating: totalRating / totalFilms,

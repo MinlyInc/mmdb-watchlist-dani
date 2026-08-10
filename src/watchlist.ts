@@ -25,3 +25,8 @@ export function markWatched(list: WatchlistItem[], id: number): WatchlistItem[] 
 export function unwatched(list: WatchlistItem[]): WatchlistItem[] {
   return list.filter((item) => !item.watched);
 }
+
+/** Returns watchlist of films specified by year */
+export function byYear(list: WatchlistItem[], year: number) {
+  return list.filter((item) => item.year == year);
+}

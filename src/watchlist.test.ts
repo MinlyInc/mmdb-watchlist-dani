@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { add, byYear, markWatched, remove, unwatched } from "./watchlist.ts";
+import { add, byYear, stats, markWatched, remove, unwatched } from "./watchlist.ts";
 import type { WatchlistItem } from "./types.ts";
 
 function film(overrides: Partial<WatchlistItem> = {}): WatchlistItem {
@@ -72,5 +72,36 @@ describe("byYear", () => {
       film({ year: 2010 }),
     ];
     expect(byYear(list, 2026).map((f) => f.year)).toEqual([2026, 2026, 2026]);
+  });
+});
+
+describe("stats", () => {
+  it("counts what is on the list", () => {
+    const list = [
+      film({ id: 1, watched: true }),
+      film({ id: 2, watched: false }),
+      film({ id: 3, watched: false }),
+    ];
+    const result = stats(list);
+    expect(result.totalFilms).toBe(3);
+    expect(result.watchedFilmsCount).toBe(1);
+    expect(result.unwatchedFilmsCount).toBe(2);
+  });
+
+  it("adds up the runtime", () => {
+    const list = [
+      film({ id: 1, runtimeMinutes: 116 }),
+      film({ id: 2, runtimeMinutes: 90 }),
+    ];
+    expect(stats(list).totalRuntimeMinutes).toBe(206);
+  });
+
+  it("averages the ratings", () => {
+    const list = [
+      film({ id: 1, rating: 8 }),
+      film({ id: 2, rating: 6 }),
+      film({ id: 3, rating: null }),
+    ];
+    expect(stats(list).averageRating).toBeCloseTo(4.67);
   });
 });

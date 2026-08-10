@@ -30,21 +30,24 @@ export function unwatched(list: WatchlistItem[]): WatchlistItem[] {
 
 /** Summarises a watchlist: how much is on it, how long it would take, how good it is. */
 export function stats(data: WatchlistItem[]): WatchlistStats {
-  let runtime = 0;
-  let ratingTotal = 0;
+  let totalRuntime = 0;
+  let totalRating = 0;
+  let totalFilms = data.length;
+  let watchedFilmsCount = data.filter((item) => item.watched).length;
 
   for (const item of data) {
-    runtime += item.runtimeMinutes ?? 0;
-    ratingTotal += item.rating ?? 0;
+    totalRuntime += item.runtimeMinutes ?? 0;
+    totalRating += item.rating ?? 0;
   }
 
-  console.log("stats() called with", data.length, "items");
+  console.log("stats() called with", totalFilms, "films");
 
   return {
-    total: data.length,
-    watched: data.filter((item) => item.watched).length,
-    unwatched: data.filter((item) => !item.watched).length,
-    totalRuntimeMinutes: runtime,
-    averageRating: ratingTotal / data.length,
+    totalFilms: totalFilms,
+    watchedFilmsCount: watchedFilmsCount,
+    //** Calculates the number of unwatched films instead iterating over data array */
+    unwatchedFilmsCount: totalFilms - watchedFilmsCount,
+    totalRuntimeMinutes: totalRuntime,
+    averageRating: totalRating / totalFilms,
   };
 }

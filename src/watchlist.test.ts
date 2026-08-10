@@ -71,9 +71,9 @@ describe("stats", () => {
       film({ id: 3, watched: false }),
     ];
     const result = stats(list);
-    expect(result.total).toBe(3);
-    expect(result.watched).toBe(1);
-    expect(result.unwatched).toBe(2);
+    expect(result.totalFilms).toBe(3);
+    expect(result.watchedFilmsCount).toBe(1);
+    expect(result.unwatchedFilmsCount).toBe(2);
   });
 
   it("adds up the runtime", () => {

@@ -12,9 +12,9 @@ export type WatchlistItem = {
 
 /** A summary of everything on a watchlist. */
 export type WatchlistStats = {
-  total: number;
-  watched: number;
-  unwatched: number;
+  totalFilms: number;
+  watchedFilmsCount: number;
+  unwatchedFilmsCount: number;
   totalRuntimeMinutes: number;
   averageRating: number;
 };

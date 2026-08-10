@@ -18,7 +18,8 @@ npm test
 | `add(list, item)`       | Puts a film on the list. Adding one that is already there is ignored.                                                                              |
 | `remove(list, id)`      | Takes a film off. Removing one that is not there is harmless.                                                                                      |
 | `markWatched(list, id)` | Marks a film watched.                                                                                                                              |
-| `unwatched(list)`       | The films still to watch, best rated first.                                                                                                        |
+| `unwatched(list)`       | The films still to watch, in the order they were added.                                                                                            |
+| `byYear(list, year)`    | Filters a wacthlist of films by the year specified                                                                                                 |
 | `stats(list)`           | A summary for the Watchlist: Total Films, Number of Watched and Unwatched Films, Total Runtime of Films in Minutes and average Rating of all Films |
 
 Every function returns a **new** list rather than changing the one you passed in.

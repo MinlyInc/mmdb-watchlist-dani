@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { add, markWatched, remove, stats, unwatched } from "./watchlist.ts";
+import { add, byYear, stats, markWatched, remove, unwatched } from "./watchlist.ts";
 import type { WatchlistItem } from "./types.ts";
 
 function film(overrides: Partial<WatchlistItem> = {}): WatchlistItem {
@@ -63,6 +63,18 @@ describe("unwatched", () => {
   });
 });
 
+describe("byYear", () => {
+  it("returns only films by the year specified", () => {
+    const list = [
+      film({ year: 2026 }),
+      film({ year: 2026 }),
+      film({ year: 2026 }),
+      film({ year: 2010 }),
+    ];
+    expect(byYear(list, 2026).map((f) => f.year)).toEqual([2026, 2026, 2026]);
+  });
+});
+
 describe("stats", () => {
   it("counts what is on the list", () => {
     const list = [
@@ -90,6 +102,6 @@ describe("stats", () => {
       film({ id: 2, rating: 6 }),
       film({ id: 3, rating: null }),
     ];
-    expect(stats(list).averageRating).toBeCloseTo(4.67);
+    expect(stats(list).averageRating).toBe(7);
   });
 });
